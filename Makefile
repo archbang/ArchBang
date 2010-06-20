@@ -7,7 +7,7 @@ PACKAGES="$(shell cat packages.list packages.list.aur) syslinux"
 # The name of our ISO. Does not specify the architecture!
 NAME=archbang
 # Version will be appended to the ISO.
-VER=2010.06-GIT_apeiro-testing
+VER=2010.09-apeiro-RC
 # Kernel version. You'll need this.
 KVER=2.6.33-ARCH
 # Architecture will also be appended to the ISO name.
