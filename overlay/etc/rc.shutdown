@@ -91,7 +91,6 @@ stat_done
 # removing psmouse module to fix some reboot issues on newer laptops
 /sbin/modprobe -r psmouse >/dev/null 2>&1
 
-
 # Write to wtmp file before unmounting
 /sbin/halt -w
 
@@ -100,7 +99,7 @@ stat_busy "Deactivating Swap"
 stat_done
 
 stat_busy "Unmounting Filesystems"
-/bin/umount -a -r -t noramfs,notmpfs,nosysfs,noproc -O no_netdev
+/bin/umount -a -r -t noramfs,notmpfs,nosysfs,noproc,nodevtmpfs -O no_netdev
 stat_done
 
 # Kill non-root encrypted partition mappings
@@ -148,6 +147,7 @@ fi
 
 stat_busy "Remounting Root Filesystem Read-only"
 /bin/mount -n -o remount,ro /
+stat_done
 
 run_hook shutdown_poweroff
 
@@ -155,11 +155,10 @@ run_hook shutdown_poweroff
 if [ "$RUNLEVEL" = "0" ]; then
 	printsep
 	printhl "${C_H2}POWER OFF"
-	[ -n "$(sudo blkid -L ARCH_201006 |grep -o sr)" -o -n "$(sudo blkid -L ARCH_201006 |grep -o cd)" ] && sudo eject $(sudo blkid -L ARCH_201006)
+[ -n "$(sudo blkid -L ARCH_201006 |grep -o sr)" -o -n "$(sudo blkid -L ARCH_201006 |grep -o cd)" ] && sudo eject $(sudo blkid -L ARCH_201006)
 echo
 printhl "${C_H2}Remove CD-ROM (if any), close the CD tray  and press enter to continue . . ."
 read
-
 	/sbin/poweroff -d -f -h -i
 else
 	printsep
@@ -170,7 +169,6 @@ else
 echo
 printhl "${C_H2}Remove CD-ROM (if any) and press enter to continue . . ."
 read
-
 	/sbin/reboot -d -f -i
 fi
 
