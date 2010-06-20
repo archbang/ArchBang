@@ -27,6 +27,7 @@ read -p "Would you like to set a custom storage path? (Y/N):	"
 	defpath=$newpath
 	else
 	echo "Path not changed! Your package location is still : $defpath"
+	mkdir -p $defpath &>/dev/null
 	echo "Press Enter to continue"
 	read
 	cd $defpath
