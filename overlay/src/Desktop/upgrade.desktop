@@ -1,0 +1,8 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=System Upgrade
+Comment=ArchBang User Guide
+Exec=lxterminal -e "sudo chimera"
+Icon=/etc/archbang/upgrade.jpeg
+Type=Application
+Categories=GTK;Utility;TerminalEmulator;
