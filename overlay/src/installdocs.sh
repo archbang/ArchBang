@@ -11,7 +11,7 @@ rm -rf ${DESTDIR}/usr/share/doc/archbang/ &> /dev/null
 echo "2010.09 - \"apeiro\" - RC" > ${DESTDIR}/etc/archbang.release
 mkdir -p ${DESTDIR}/etc/archbang
 cp -a /etc/archbang/*.png ${DESTDIR}/etc/archbang
-echo "1" > ${DESTDIR}/etc/archbang/updater.conf
+echo "2" > ${DESTDIR}/etc/archbang/updater.conf
 mkdir -p ${DESTDIR}/usr/share/doc/
 cp -r /src/archbang ${DESTDIR}/usr/share/doc/ &> /dev/null
 touch ${DESTDIR}/usr/share/doc/archbang/CHANGELOG
