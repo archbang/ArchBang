@@ -1,6 +1,6 @@
 #!/bin/sh
 #Script to make AUR packages mentioned in packages.list.aur
-#V.-0.3
+#V.-0.4
 #AUTHOR - PDG - sHy [pdg@archlinux.us] , Thanks to Mike Tuffin for his ideas.
 # Check if we're root before going ahead
 if [ `whoami` != 'root' ]; then
@@ -39,7 +39,7 @@ rm *.tar.gz
 rm packages.list.aur
 for dir in $defpath/*
 do
-  (cd $dir && makepkg -sf --asroot)
+  (cd $dir && makepkg -sf --asroot && mv *.pkg.tar.xz ../)
 done
 
 repo-add $defpath/custom.db.tar.gz $defpath/*.pkg.tar.xz
