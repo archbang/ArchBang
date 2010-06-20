@@ -12,7 +12,7 @@ printhl "${C_H2}http://www.archbang.org"
 printhl "Copyright 2010 ArchBang Administration Team"
 printhl "Distributed under the GNU General Public License 3(GPL3)"
 printhl " "
-printhl "based on Arch Linux\n"
+printhl "Arch Linux\n"
 printhl "${C_H2}http://www.archlinux.org"
 printhl "Copyright 2002-2007 Judd Vinet"
 printhl "Copyright 2007-2010 Aaron Griffin"
@@ -22,9 +22,19 @@ printsep
 run_hook sysinit_start
 
 # mount /proc, /sys and our RAM /dev
-/bin/mount -n -t tmpfs udev /dev -o mode=0755,size=10M,nosuid
-/bin/mount -n -t proc none /proc
-/bin/mount -n -t sysfs none /sys
+if ! /bin/mountpoint -q /proc; then
+  /bin/mount -n -t proc none /proc
+fi
+if ! /bin/mountpoint -q /sys; then
+  /bin/mount -n -t sysfs none /sys
+fi
+if ! /bin/mountpoint -q /dev; then
+  if grep -q devtmpfs /proc/filesystems 2>/dev/null; then
+    /bin/mount -n -t devtmpfs udev /dev -o mode=0755,size=10M,nosuid
+  else
+    /bin/mount -n -t tmpfs udev /dev -o mode=0755,size=10M,nosuid
+  fi
+fi
 
 # Copy static device nodes to /dev
 /bin/cp -a /lib/udev/devices/* /dev/
@@ -51,12 +61,20 @@ fi
 
 if [ -n "$HWCLOCK_PARAMS" ]; then
 	# enable rtc access
-	/sbin/modprobe rtc-cmos >/dev/null 2>&1
-	RTC_MAJOR=$(/bin/grep -w rtc /proc/devices 2>/dev/null)
-	RTC_MAJOR="${RTC_MAJOR%% *}"
-	if [ -n "$RTC_MAJOR" ]; then
-		/bin/mknod /dev/rtc0 c $RTC_MAJOR 0
-		/bin/ln -s /dev/rtc0 /dev/rtc
+	/sbin/modprobe -q rtc-cmos
+	# some custom kernels use rtc/genrtc, try to load those too
+	/sbin/modprobe -q rtc
+	/sbin/modprobe -q genrtc
+	# If devtmpfs is used, the required RTC device already exists now
+	# Otherwise, create whatever device is available
+	if [ ! -c /dev/rtc -a ! -c /dev/rtc0 ]; then
+		if [ -f /sys/class/rtc/rtc0/dev ]; then
+			IFS=: read -r major minor < /sys/class/rtc/rtc0/dev
+			/bin/mknod /dev/rtc0 c $major $minor
+		elif [ -f /sys/class/misc/rtc/dev ]; then
+			IFS=: read -r major minor < /sys/class/misc/rtc/dev
+			/bin/mknod /dev/rtc c $major $minor
+		fi
 	fi
 
 	# Do a clock set here for a few reasons:
@@ -84,7 +102,7 @@ run_hook sysinit_udevlaunched
 if /bin/pidof -o %PPID /sbin/udevd >/dev/null; then
   stat_busy "Triggering UDev uevents"
   /sbin/udevadm control --property=STARTUP=1
-  /sbin/udevadm trigger
+  /sbin/udevadm trigger --action=add
   stat_done
 fi
 
@@ -244,10 +262,10 @@ fsck_reboot() {
 if [ -x /sbin/fsck ]; then
 	stat_busy "Checking Filesystems"
 	FSCK_OUT=/dev/stdout
-	FSCK_ERR=/dev/null
+	FSCK_ERR=/dev/stdout
 	FSCK_FD=
 	run_hook sysinit_prefsck
-	/sbin/fsck -A -T -C$FSCK_FD -a -t $NETFS $FORCEFSCK >$FSCK_OUT 2>$FSCK_ERR
+	/sbin/fsck -A -T -C$FSCK_FD -a -t "$NETFS,noopts=_netdev" $FORCEFSCK >$FSCK_OUT 2>$FSCK_ERR
 	fsckret=$?
 	if [ ${fsckret} -gt 1 ]; then
 		stat_fail
@@ -284,13 +302,7 @@ fi
 
 stat_busy "Mounting Local Filesystems"
 /bin/mount -n -o remount,rw /
-: >| /etc/mtab
-# make sure / gets written to /etc/mtab
-/bin/mount -o remount,rw /
-# Write /proc, /sys and /dev to /etc/mtab
-if [ -e /proc/mounts ]; then
-	/bin/grep -e "/proc " -e "/sys " -e "/dev " /proc/mounts >> /etc/mtab
-fi
+cat /proc/mounts >| /etc/mtab
 run_hook sysinit_premount
 # now mount all the local filesystems
 /bin/mount -a -t $NETFS -O no_netdev
