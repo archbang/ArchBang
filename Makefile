@@ -9,7 +9,7 @@ NAME=archbang
 # Version will be appended to the ISO.
 VER=2010.09-apeiro-RC
 # Kernel version. You'll need this.
-KVER=2.6.33-ARCH
+KVER=2.6.34-ARCH
 # Architecture will also be appended to the ISO name.
 ARCH?=$(shell uname -m)
 # Current working directory

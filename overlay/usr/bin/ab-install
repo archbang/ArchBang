@@ -924,8 +924,8 @@ cp -r /etc/hal ${DESTDIR}/etc
 #remove installer and others
 #rm -rf $DESTDIR/install
 #rm $DESTDIR/usr/share/applications/abinstaller.desktop
-#rm $DESTDIR/usr/bin/abinstall
-#rm $DESTDIR/usr/bin/cp2ram
+rm $DESTDIR/usr/bin/abinstall
+rm $DESTDIR/usr/bin/cp2ram
 #cp /home/live/.config/openbox/menu.xml ${DESTDIR}/home/live/.config/openbox/menu.xml
 #cp /home/live/.config/ob-autostart/config.pdg ${DESTDIR}/home/live/.config/ob-autostart/config
 #rm -f ${DESTDIR}/home/live/.config/openbox/menu.xml.pdg
@@ -1637,6 +1637,9 @@ rm -f ${DESTDIR}/etc/rc.sysinit
 cp -rp /etc/rc.sysinit ${DESTDIR}/etc/rc.sysinit
 rm -rf ${DESTDIR}/etc/NetworkManager
 cp -rp /etc/NetworkManager ${DESTDIR}/etc
+
+#Mirrorlist
+/src/mirrorlist/mirrorcopy.sh
 }
 
 install_bootloader()
