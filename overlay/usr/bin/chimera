@@ -46,13 +46,15 @@ if [ "$old" -ne "$new" ]; then
 	wget -q $URL2
 	chmod +x pluck
 	sh pluck
-	sed -i "2d" /etc/archbang/updater.conf
+	rm /etc/archbang/updater.conf
+	echo "$new" > /etc/archbang/updater.conf
 	echo "Last Updated on `date`" >> /etc/archbang/updater.conf
 	echo "Cleaning up!"
 	rm -f /tmp/pluck
 else
 	echo "Already up-to-date."
-	sed -i "2d" /etc/archbang/updater.conf
+	rm /etc/archbang/updater.conf
+	echo "$new" > /etc/archbang/updater.conf
 	echo "Last Updated on `date`" >> /etc/archbang/updater.conf
 	rm update.conf
 	echo "Done!"
