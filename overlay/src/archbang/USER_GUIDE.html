@@ -4,10 +4,12 @@
 </head><body bgcolor="#cccccc">
 <h1 align="center"><strong>ArchBang User Guide</strong></h1>
 <p><strong><marquee behavior="alternate">Welcome to ArchBang 2010.09 - 
-"apeiro" - Testing!</marquee>
-  </strong></p>
+"apeiro" - RC
+</marquee>
+ 
+</strong></p>
 <p>Remember this guide is also in the making and far from being 
-complete. :)  </p>
+complete. :) Help us improve this guide. Contact <a href="mailto:pdg@archlinux.us">me.</a></p>
 <p>First of all, thank you for using ArchBang!
   
   The first thing you should do is read this guide (obviously)!  </p>
@@ -18,8 +20,10 @@ complete. :)  </p>
  up Space</a> <br>(iv) <a href="#down">Downgrade packages</a> <br> (v) <a href="#backup">Backup Packages</a> <br>
 (vi) <a href="#locale">Setting up Locales</a></p>
 <p> 3. <a href="#aud">Audio and Video</a></p>
-<p>4. <a href="#looks">Looks and appearance</a></p>
-<p>5. <a href="#open">Configuring Openbox</a></p>
+<p>4. <a href="#recapp">Recommended Applications</a></p>
+<p>5. <a href="keyb">Keyboard Shortcuts</a> (&amp; Autostart Applications)</p>
+<p>6. <a href="#looks">Looks and appearance</a></p>
+<p>7. <a href="#open">Suggested Links</a></p>
 <p><strong><em><a name="network">Network Connection</a></em></strong></p>
 <p>Typically ArchBang provides you a GUI tool called "wicd" which is 
 there in your tint2 bottom panel. Just click on it and configure your 
@@ -123,7 +127,7 @@ The   system wide locale will be updated after rebooting your computer. </p>
 <a name="aud"></a>
 <p>(i) <strong>Audio</strong> - <a 
 href="http://wiki.archlinux.org/index.php/Advanced_Linux_Sound_Architecture"
- target="_new">Alsa</a> comes with ArchBang. Your sound card is detected automatically during the setup process but if you need to re-configure it manually run:</p>
+ target="_new">Alsa</a> along with necessary <a href="http://wiki.archlinux.org/index.php/GStreamer" target="_new">Gstreamer</a> codecs come with ArchBang. Your sound card is detected automatically during the setup process but if you need to re-configure it manually run:</p>
 <p><code>sudo alsaconf</code></p>
 <p>Select your Sound card and let it finish configuring.</p>
 <p>Then:</p>
@@ -134,33 +138,37 @@ href="http://wiki.archlinux.org/index.php/Advanced_Linux_Sound_Architecture"
 href="http://wiki.archlinux.org/index.php/PulseAudio" target="_new">PulseAudio</a>
  or <a href="http://wiki.archlinux.org/index.php/OSS" target="_new">OSS4</a>
  or something else, check out the Arch Wiki links.</p>
-<p>Audio player provided is exaile. It is quite fast and looks cool. :) Other alternatives:</p>
+<p>Audio player provided is gnome-player. It is quite fast and looks cool. :) Other alternatives:</p>
 <p><code>sudo pacman -S quodlibet mpd</code></p>
 <p>(ii) <strong>Video</strong> - Gnome-mplayer is 
 supplied with ArchBang. Other alternatives may be downloaded by:</p>
 <p><code>sudo pacman -S smplayer</code> vlc</p>
 <p>The nvidia users already should have the proprietary driver 
-installed, unless ofcourse they chose otherwise. ATI users have "radeon"
+installed, unless ofcourse they chose the &quot;nv&quot; driver. ATI users have "radeon"
  or "radeonhd" drivers, but they can still use the proprietary driver - <a
  href="http://wiki.archlinux.org/index.php/Fglrx" target="_new">fglrx</a>.</p>
-<p><strong>(iii) CD/DVD burning</strong> - Graveman is already installed which is a lightweight CD/DVD burning tool. Other alternatives:</p>
-<p><code>sudo pacman -S k3b xfburn</code></p>
-
 <p><a name="looks"><strong><em>Looks and Appearance</em></strong></a></p>
 <p>You can change the default icons,themes,font,etc. by using various 
-tools like obconf, lxappearance,etc. Right click on your desktop and go 
-to Preferences and check out the options.</p>
-<p>&nbsp;</p>
-<p><strong><em><a name="open">Configuring Openbox</a></em></strong></p>
-<p><a href="http://openbox.org/" target="_new">Openbox</a> is a highly 
-configurable, next generation window manager with   extensive standards 
-support. Openbox configuration can be done either by manually 
-hand-editing the menu.xml,rc.xml and ob-autostart/config files which can
- be found in your /home/$USER/.config/ directory, or by using the GUI 
-tools we provided! Much easier and recommended method is to right click 
-on your desktop and go to Preferences and System Settings. </p>
-<p><br>
-  <strong>Make sure you visit:</strong><br>
+tools like obconf, lxappearance,etc. You can get them by typing in lxterminal or from the LXMenu=&gt;Preferences.</p>
+<p><a name="recapp"><strong><em>Recommended Applications:</em></strong></a></p>
+<p>Since ArchBang is lightweight we do not clutter the ISO with too many applications and just let users decide what to install and use. The point of this is to let the decision be made by the users instead of the developers. E.g.,we can provide vim, but the user may prefer emacs, etc. So we keep the applications on Live CD to bare minimum.</p>
+<p>After install we recommend you to install the following applications according to your needs.</p>
+<p><a href="http://wiki.archlinux.org/index.php/Lightweight_Applications" target="_new">http://wiki.archlinux.org/index.php/Lightweight_Applications</a></p>
+<a name="keyb"><p><em><strong>Keyboard Shortcuts:</strong></em></p></a>
+<p>There are two ways of editing keyboard shortcuts. </p>
+<p>(i) Recommended way : </p>
+<p><code>packer -S xbindkeys_config</code></p>
+<p><code>touch ~/.xbindkeysrc</code></p>
+<p>Remember to add xbindkeys to startup applications:</p>
+<p><code>[Desktop Entry] </code></p>
+<p><code>Type=Application </code></p>
+<p><code>Exec=xbindkeys</code></p>
+<p>Save it as xbindkeys.desktop and :</p>
+<p><code>mv xbindkeys.desktop ~/.config/autostart</code></p>
+<p>Read more about xbindkeys <a href="http://wiki.archlinux.org/index.php/Xbindkeys" target="_new">here</a>.</p>
+<p>Read how to <a href="http://wiki.lxde.org/en/Autostart" target="_new">Autostart</a> programs in LXDE.</p>
+<p><a name="open"><strong>Useful Links:</strong></a></p>
+<p>LXDE Wiki: <a href="http://wiki.lxde.org/en/Main_Page" target="_new">http://wiki.lxde.org/en/Main_Page</a><br>
   Beginners   Guide:
   <!-- m -->
   <a href="http://wiki.archlinux.org/index.php/Beginners%27_Guide">http://wiki.archlinux.org/index.php/Beginners%27_Guide</a>
@@ -210,22 +218,22 @@ on your desktop and go to Preferences and System Settings. </p>
   <!-- m -->
   <a href="http://wiki.archlinux.org/index.php/Openbox">http://wiki.archlinux.org/index.php/Openbox</a>
   <!-- m -->
-and<br>
-Great openbox guide:
-<!-- m -->
-<a href="http://urukrama.wordpress.com/openbox-guide/">http://urukrama.wordpress.com/openbox-guide/</a>
-<!-- m -->
-<br>
-Fonts:
-<!-- m -->
-<a href="http://wiki.archlinux.org/index.php/Fonts">http://wiki.archlinux.org/index.php/Fonts</a>
-<!-- m -->
-<br>
-Setting   up your network:
-<!-- m -->
-<a href="http://wiki.archlinux.org/index.php/Configuring_Network">http://wiki.archlinux.org/index.php/Configuring_Network</a>
-<!-- m -->
-<br>
+  and<br>
+  Great openbox guide:
+  <!-- m -->
+  <a href="http://urukrama.wordpress.com/openbox-guide/">http://urukrama.wordpress.com/openbox-guide/</a>
+  <!-- m -->
+  <br>
+  Fonts:
+  <!-- m -->
+  <a href="http://wiki.archlinux.org/index.php/Fonts">http://wiki.archlinux.org/index.php/Fonts</a>
+  <!-- m -->
+  <br>
+  Setting   up your network:
+  <!-- m -->
+  <a href="http://wiki.archlinux.org/index.php/Configuring_Network">http://wiki.archlinux.org/index.php/Configuring_Network</a>
+  <!-- m -->
+  <br>
 </p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>

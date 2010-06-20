@@ -1,7 +1,7 @@
 GOALS AND FEATURES
 ------------------
 
-ArchBang is a simple GNU/Linux distribution which provides you with a lightweight Arch Linux system combined with the OpenBox window manager.
+ArchBang is a simple GNU/Linux distribution which provides you with a lightweight Arch Linux system combined with the LXDE Desktop Environment.
 Suitable for both desktop and portable systems. It is fast, stable, and always up to date.
 
 You can customise your install to suit your needs, and draw on the vast resources & knowledge of the Arch Linux community.
@@ -35,7 +35,7 @@ Website: http://www.archbang.org/
 
 Forum: http://archbang.x.am/
 
-Development: http://gitorious.org/archbang/archbang
+Development: http://github.com/archbang
 
 Bugs: http://bugs.archbang.org/
 

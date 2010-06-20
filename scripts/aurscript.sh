@@ -1,14 +1,14 @@
 #!/bin/sh
 #Script to make AUR packages mentioned in packages.list.aur
 #V.-0.3
-#AUTHOR - PDG - sHy [pdg@archlinux.us]
+#AUTHOR - PDG - sHy [pdg@archlinux.us] , Thanks to Mike Tuffin for his ideas.
 # Check if we're root before going ahead
 if [ `whoami` != 'root' ]; then
         zenity --info --text="Script needs to be run with root privileges.\nUse \"sudo aurscript.sh\"."
         exit
 fi
 
-URL="http://gitorious.org/archbang/archbang/blobs/raw/master/packages.list.aur"
+URL="http://github.com/archbang/ArchBang/raw/master/packages.list.aur"
 defpath=$(grep PKGDEST /etc/makepkg.conf | cut -d"=" -f2)
 echo "Your packages will be by default stored in $defpath"
 read -p "Would you like to set a custom storage path? (Y/N):	"

@@ -44,7 +44,7 @@ GETTING ARCHBANG
 Go to the directory where you want to clone the ArchBang git tree. Let's assume your home directory here.
 
 $ cd
-$ git clone git://gitorious.org/archbang/archbang.git
+$ git clone git://github.com/archbang/ArchBang.git
 
 Done! That's pretty much it.
 
