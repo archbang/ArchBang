@@ -1,0 +1,14 @@
+# Pacman Mirrorlist - Selected mirrors based on Shortest Delay Time [SDT]
+# You can search for mirrors based on SDT or Response Time [RT] from:
+# https://www.archlinux.de/?page=MirrorStatus
+# Remember if pacman-mirrorlist package gets upgraded then this file will be saved as mirrorlist.pacsave
+# You can always get this file from our GIT [ archbang/overlay/src/mirrorlist/ ]
+# Please read: http://wiki.archlinux.org/index.php/Mirrors#Mirror_status
+
+Server = http://cesium.di.uminho.pt/pub/archlinux/$repo/os/i686
+Server = http://archlinux.puzzle.ch/$repo/os/i686
+Server = ftp://ftp.archlinux.org/$repo/os/i686
+Server = http://archlinux.mirrors.uk2.net/$repo/os/i686
+Server = http://mirror.rit.edu/archlinux/$repo/os/i686
+Server = http://archlinux.freeside.ru/$repo/os/i686
+Server = http://mirrors.kernel.org/archlinux/$repo/os/i686
