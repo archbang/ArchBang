@@ -1,0 +1,15 @@
+Generated File. Do not edit.
+
+[HEADER]
+Version:0.11:$
+
+[PLUGINS]
+libflashplayer.so:$
+/usr/lib/mozilla/plugins/libflashplayer.so:$
+:$
+1265923310000:1:1:$
+Shockwave Flash 10.0 r45:$
+Shockwave Flash:$
+2
+0:application/x-shockwave-flash:Shockwave Flash:swf:$
+1:application/futuresplash:FutureSplash Player:spl:$

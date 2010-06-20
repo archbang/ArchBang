@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Website
+Comment=ArchBang User Guide
+Exec=firefox http://archbang.org
+Icon=firefox
+Terminal=false
+Type=Application
+MimeType=text/plain
+Categories=GTK;Utility;TextEditor;
+StartupNotify=true

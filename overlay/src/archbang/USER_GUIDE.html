@@ -1,0 +1,232 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1"><title>User
+ Guides</title>
+</head><body bgcolor="#cccccc">
+<h1 align="center"><strong>ArchBang User Guide</strong></h1>
+<p><strong><marquee behavior="alternate">Welcome to ArchBang 2010.09 - 
+"apeiro" - Testing!</marquee>
+  </strong></p>
+<p>Remember this guide is also in the making and far from being 
+complete. :)  </p>
+<p>First of all, thank you for using ArchBang!
+  
+  The first thing you should do is read this guide (obviously)!  </p>
+<p>1. <a href="#network">Network Connection</a></p>
+<p>2. <a href="#system">System Maintenance</a></p>
+<p>			    (i)  <a href="#du">Dist upgrade</a><br>	    
+(ii) <a href="#install">Installing Packages</a> <br>(iii) <a href="#free">Free
+ up Space</a> <br>(iv) <a href="#down">Downgrade packages</a> <br> (v) <a href="#backup">Backup Packages</a> <br>
+(vi) <a href="#locale">Setting up Locales</a></p>
+<p> 3. <a href="#aud">Audio and Video</a></p>
+<p>4. <a href="#looks">Looks and appearance</a></p>
+<p>5. <a href="#open">Configuring Openbox</a></p>
+<p><strong><em><a name="network">Network Connection</a></em></strong></p>
+<p>Typically ArchBang provides you a GUI tool called "wicd" which is 
+there in your tint2 bottom panel. Just click on it and configure your 
+wired/wireless static/DHCP network connection.</p>
+<p>You can alternatively manually configure the network using rc.conf 
+file. </p>
+<p>Edit as root:</p>
+<p><code>sudo nano /etc/rc.conf</code></p>
+<p>and skip down to the part where it says Network. Edit your static IP 
+or if you use DHCP uncomment DHCP. Remove the "!" before eth0 and wlan0 
+interfaces. Put ! before wicd in daemons array and add "@network" there.
+ Save and start the network daemon.</p>
+<p><code>sudo /etc/rc.d/wicd stop</code></p>
+<p><code>sudo /etc/rc.d/network start</code></p>
+<p><strong><em><a name="system">System Maintenance</a></em></strong></p>
+<p>Following is the recommended way of maintaining your ArchBang 
+install.</p>
+<p>(i) <a name="du"><strong>Dist Upgrade</strong></a> - Please check the
+ website and Forum before you upgrade your ArchBang install. It is very 
+important that you check out the <a href="http://archlinux.org/" 
+target="_new">Arch Linux</a> website for any news. Sometimes new 
+packages may cause some problem during or after the upgrade. We try to 
+alert our users through forum. </p>
+<p>How to upgrade?</p>
+<p><code>sudo chimera</code></p> 
+<p>Use <code>sudo diffpac</code> to check out any pacnew or pacsave 
+files. Details about <a 
+href="http://wiki.archlinux.org/index.php/Pacnew_and_Pacsave_Files" 
+target="_new">pacnew and pacsave files.</a></p>
+<p>(ii) <a name="install"><strong>Installing Packages</strong></a> - To install packages from official repositories, run:</p>
+<p><code>sudo pacman -S packagename</code></p>
+<p>To install an AUR package run:</p>
+<p><code>packer -S packagename</code></p>
+<p>To search for a package run:</p>
+<p><code>packer -Ss packagename</code></p>
+<p>(iii) <strong><a name="free">Freeing up space</a> - </strong>Remove 
+uninstalled cached packages from /var/cache/pacman/pkg by :</p>
+<p><code>sudo pacman -Sc</code></p>
+<p><strong>Note:</strong> Saving the pkg content folder is an important means to downgrade new packages that cause problems, so they sould be very careful not to do or confuse above command with:</p>
+<p><code># pacman -Scc</code></p>
+<p> which cleans the whole package cache folder.</p>
+<p> (iv) <a name="down"><strong>How to downgrade a package?</strong></a></p>
+<p> <tt><cite>* Q: I just ran pacman -Syu and package XYZ was upgraded to version N from version M. This package is causing problems on my computer, how can I downgrade from version N to the older version M? </cite></tt></p>
+<p><tt><cite>* A: You may be able to downgrade the package trivially by visiting /var/cache/pacman/pkg on your system and seeing if the older version of the package is stored there. (If you have not run pacman -Scc recently, it should be there). If the package is there, you can install that version using pacman -U pkgname-olderpkgver.pkg.tar.gz.
+  
+  This process will remove the current package, it will carefully calculate all of the dependency changes, and it will install the older version you have chosen with the proper dependencies down the line.</cite></tt><cite></cite></p>
+<p>(v) <a name="backup"><strong>Backup:</strong></a><br>
+Backing up and   retrieving a list of installed packages<br>
+<br>
+It is good practice to   keep periodic backups of all pacman-installed packages. In the event of a   system crash which is unrecoverable by other means, pacman can then   easily reinstall the very same packages onto a new installation.<br>
+<br>
+* First, backup the current list of packages (which are available in   a repository): <br>
+<br>
+<code>$ comm -13 &lt;(pacman -Qmq | sort) &lt;(pacman   -Qqe | sort) &gt; pkglist</code><br>
+<br>
+* Store the pkglist on a USB key   or other convenient medium. <br>
+<br>
+* Copy the pkglist file to the   new installation, and navigate to the directory containing it. <br>
+<br>
+* Issue the following command to install from the backup list: <br>
+<br>
+<code># pacman -S $(cat pkglist)</code><br>
+<br>
+source:
+<!-- m -->
+<a href="http://wiki.archlinux.org/index.php/Pacman_Tips">http://wiki.archlinux.org/index.php/Pacman_Tips</a>
+<!-- m -->
+</p>
+<p>Full system backup with Rsync:
+  <!-- m -->
+  <a href="http://wiki.archlinux.org/index.php/Full_System_Backup_with_rsync">http://wiki.archlinux.org/index.php/Ful   ... with_rsync</a>
+<!-- m --></p>
+<p>(vi) <a name="locale"><strong>Setting up Locale</strong></a><br>
+  Locales are   used in Linux to define which language the user uses. As the locales   define the character set which the user uses as well, setting up the   correct locale is especially important if the language contains   non-ASCII characters. <br>
+  <em><strong>Enabling necessary locales<br>
+  </strong></em><br>
+First you   have to enable the locales you want being supported by your system. To   enable or disable them, the file /etc/locale.gen is used. It contains   every locale you can enable, and you have just to uncomment lines you want to do so.<br>
+<br>
+As   we want to setup an English UTF-8 conform system, we want to enable   en_US.UTF-8. But for compatibility to programs that don't support UTF-8   yet, it's recommended to support any other locale, prefixed with en_US   as well. Having this in mind, we enable this set of locales:<br>
+<dfn><br>
+en_US.UTF-8      UTF-8<br>
+en_US  ISO-8859-1</dfn><br>
+<br>
+After you've enabled the necessary   locales, you have to run locale-gen as root to update them:<br>
+<br>
+<code>#   sudo locale-gen<br>
+Generating locales...<br>
+en_US.UTF-8... done<br>
+en_US.ISO-8859-1... done<br>
+Generation complete.</code><br>
+<br>
+<strong>Note: </strong>Though   it's most likely just one language you use on your computer it can be   helpful or even necessary to enable other locales as well. For example   if you're running a multi-user system with users that don't speak en_US,   they won't be happy until their individual locale is at least supported   by your system.<br>
+Setting system wide locale<br>
+<br>
+To define which   locale should be used by the system, you can easily add your locale to   your /etc/rc.conf file. As we've just added ISO-8859 support just for   (backward-)compatibility, we add en_US.UTF-8 here:<br>
+<br>
+<dfn>LOCALE="en_US.UTF-8"</dfn><br>
+<br>
+The   system wide locale will be updated after rebooting your computer. </p>
+<p><strong><em>Audio &amp; Video</em></strong></p>
+<a name="aud"></a>
+<p>(i) <strong>Audio</strong> - <a 
+href="http://wiki.archlinux.org/index.php/Advanced_Linux_Sound_Architecture"
+ target="_new">Alsa</a> comes with ArchBang. Your sound card is detected automatically during the setup process but if you need to re-configure it manually run:</p>
+<p><code>sudo alsaconf</code></p>
+<p>Select your Sound card and let it finish configuring.</p>
+<p>Then:</p>
+<p><code>alsamixer</code></p>
+<p>Finally after setting up the volume levels:</p>
+<p><code>sudo alsactl store</code></p>
+<p>In case you want to use <a 
+href="http://wiki.archlinux.org/index.php/PulseAudio" target="_new">PulseAudio</a>
+ or <a href="http://wiki.archlinux.org/index.php/OSS" target="_new">OSS4</a>
+ or something else, check out the Arch Wiki links.</p>
+<p>Audio player provided is exaile. It is quite fast and looks cool. :) Other alternatives:</p>
+<p><code>sudo pacman -S quodlibet mpd</code></p>
+<p>(ii) <strong>Video</strong> - Gnome-mplayer is 
+supplied with ArchBang. Other alternatives may be downloaded by:</p>
+<p><code>sudo pacman -S smplayer</code> vlc</p>
+<p>The nvidia users already should have the proprietary driver 
+installed, unless ofcourse they chose otherwise. ATI users have "radeon"
+ or "radeonhd" drivers, but they can still use the proprietary driver - <a
+ href="http://wiki.archlinux.org/index.php/Fglrx" target="_new">fglrx</a>.</p>
+<p><strong>(iii) CD/DVD burning</strong> - Graveman is already installed which is a lightweight CD/DVD burning tool. Other alternatives:</p>
+<p><code>sudo pacman -S k3b xfburn</code></p>
+
+<p><a name="looks"><strong><em>Looks and Appearance</em></strong></a></p>
+<p>You can change the default icons,themes,font,etc. by using various 
+tools like obconf, lxappearance,etc. Right click on your desktop and go 
+to Preferences and check out the options.</p>
+<p>&nbsp;</p>
+<p><strong><em><a name="open">Configuring Openbox</a></em></strong></p>
+<p><a href="http://openbox.org/" target="_new">Openbox</a> is a highly 
+configurable, next generation window manager with   extensive standards 
+support. Openbox configuration can be done either by manually 
+hand-editing the menu.xml,rc.xml and ob-autostart/config files which can
+ be found in your /home/$USER/.config/ directory, or by using the GUI 
+tools we provided! Much easier and recommended method is to right click 
+on your desktop and go to Preferences and System Settings. </p>
+<p><br>
+  <strong>Make sure you visit:</strong><br>
+  Beginners   Guide:
+  <!-- m -->
+  <a href="http://wiki.archlinux.org/index.php/Beginners%27_Guide">http://wiki.archlinux.org/index.php/Beginners%27_Guide</a>
+  <!-- m -->
+  <br>
+  FAQ
+  <!-- m -->
+  <a href="http://wiki.archlinux.org/index.php/FAQ">http://wiki.archlinux.org/index.php/FAQ</a>
+  <!-- m -->
+  <br>
+  Table   of Contents Wiki:
+  <!-- m -->
+  <a href="http://wiki.archlinux.org/index.php/Table_of_Contents">http://wiki.archlinux.org/index.php/Table_of_Contents</a>
+  <!-- m -->
+  <br>
+  Pacman
+  <!-- m -->
+  <a href="http://wiki.archlinux.org/index.php/Pacman">http://wiki.archlinux.org/index.php/Pacman</a>
+  <!-- m -->
+  <br>
+  Downgrading   Packages :
+  <!-- m -->
+  <a href="http://wiki.archlinux.org/index.php/Downgrading_Packages">http://wiki.archlinux.org/index.php/Dow   ... g_Packages</a>
+  <!-- m -->
+  <br>
+  Overview of lightweight apps:
+  <!-- m -->
+  <a href="http://wiki.archlinux.org/index.php/Lightweight_Applications">http://wiki.archlinux.org/index.php/Lig   ... plications</a>
+  <!-- m -->
+  <br>
+  Overview of common apps:
+  <!-- m -->
+  <a href="http://wiki.archlinux.org/index.php/Common_Applications">http://wiki.archlinux.org/index.php/Common_Applications</a>
+  <!-- m -->
+  <br>
+  Command   line tutorial:
+  <!-- m -->
+  <a href="http://manuals.bioinformatics.ucr.edu/home/linux-basics">http://manuals.bioinformatics.ucr.edu/home/linux-basics</a>
+  <!-- m -->
+  <br>
+  On   cd burning:
+  <!-- m -->
+  <a href="http://wiki.archlinux.org/index.php/CD_Burning">http://wiki.archlinux.org/index.php/CD_Burning</a>
+  <!-- m -->
+  <br>
+  On   Openbox:
+  <!-- m -->
+  <a href="http://wiki.archlinux.org/index.php/Openbox">http://wiki.archlinux.org/index.php/Openbox</a>
+  <!-- m -->
+and<br>
+Great openbox guide:
+<!-- m -->
+<a href="http://urukrama.wordpress.com/openbox-guide/">http://urukrama.wordpress.com/openbox-guide/</a>
+<!-- m -->
+<br>
+Fonts:
+<!-- m -->
+<a href="http://wiki.archlinux.org/index.php/Fonts">http://wiki.archlinux.org/index.php/Fonts</a>
+<!-- m -->
+<br>
+Setting   up your network:
+<!-- m -->
+<a href="http://wiki.archlinux.org/index.php/Configuring_Network">http://wiki.archlinux.org/index.php/Configuring_Network</a>
+<!-- m -->
+<br>
+</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</body></html>

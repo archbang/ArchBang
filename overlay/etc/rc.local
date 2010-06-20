@@ -1,0 +1,61 @@
+#!/bin/bash
+#
+# /etc/rc.local: Local multi-user startup script.
+#
+
+source /src/installdefaults.$(arch)
+ARTWORK="/src/pkgs/archbang-artwork-2010.06-2-$(arch).pkg.tar.xz"
+chmod 0440 /etc/sudoers &> /dev/null
+mkdir -p /home/live &> /dev/null
+useradd -u 1000 -g users -G storage,optical,audio,video,network,wheel,power,hal,lp -d /home/live live &> /dev/null
+passwd -d live &> /dev/null
+chown live /home/live &> /dev/null
+su -c "cp -r /etc/skel/.[a-zA-Z0-9]* /home/live/" live &> /dev/null
+clear
+echo
+echo
+echo -e "\e[01;32mInitializing Live environment . . ."
+echo
+echo
+pacman -Ufd $ARTWORK --noprogressbar --noconfirm &> /dev/null
+echo
+echo
+if (lspci | grep VGA | grep nVidia &> /dev/null); then
+	echo -e "\e[01;34mnVidia graphic card was detected"
+	echo -e "\e[01;31mPlease wait ..."
+	echo
+	echo
+	echo -e "\e[01;33mYou can choose to use the Open source \"nv\" driver (http://xorg.freedesktop.org/wiki/nv)."
+	echo
+	echo	
+	echo
+	echo
+	echo -e "\e[01;36mWould you like to use the proprietary driver? (Y/N): ";
+	read REPLY
+	if [[ "$REPLY" =~ ^[yY] ]]; then
+ 	echo -e "\e[01;32mThis could take a while.  ;-)"
+	cd /src/pkgs
+	/src/nvidia_installer.sh $NVPACKAGES
+	else
+	X -configure &> /dev/null
+	cp /root/xorg.conf.new /etc/X11/xorg.conf &> /dev/null	
+#	sed -i "/s/nv/nouveau/" /etc/X11/xorg.conf &> /dev/null
+	fi
+fi
+amixer sset 'Master Mono' 90% unmute &> /dev/null
+amixer sset 'Master' 90% unmute &> /dev/null
+amixer sset 'PCM' 90% unmute &> /dev/null
+sed -i "s/#openbox/openbox/g" /etc/update-menus.conf  &>/dev/null
+rm -rf /home/live/.config/pcmanfm &> /dev/null
+cp -r /src/pcmanfm /home/live/.config/
+chmod 777 /home/live/.config/pcmanfm -R
+rm -rf /home/live/Desktop &> /dev/null
+cp -r /src/Desktop /home/live/
+chmod 777 /home/live/Desktop -R
+rm -rf /home/live/.mozilla
+cp -rp /src/.mozilla /home/live/
+chmod 777 /home/live/.mozilla -R
+sh /src/installdocs-live.sh &> /dev/null
+echo -e "\e[01;32mDone!"
+#This might be necessary for chromium to launch.
+#rm -f /usr/lib/chromium/chromium-sandbox

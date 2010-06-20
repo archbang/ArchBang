@@ -1,0 +1,57 @@
+#!/bin/bash
+# Distribué sous licence GNU GPL, sans AUCUNE garantie d'aucun type.
+# L'auteur décline toute responsabilité sur tout dommage ou toute perte de données suite à l'utilisation de ce script !
+
+[ -e /liveinram ] && echo "Already done !" && exit 0
+if [ `whoami` != 'root' ]; then
+	zenity --info --text="Installer needs to be run with root privilege.\nType in a terminal: sudo cp2ram"
+	exit
+fi
+echo "This script allows to copy live in RAM."
+echo
+echo "Be sure to have at least 600Mb of RAM available !"
+echo "There is actually $(free -m |head -n3 |tail -n1 |awk -F " " '{print $NF}')Mb of RAM available"
+echo
+echo "To start copying right away, press Enter. To cancel, Ctrl+C."
+read
+[ "600" -ge "$(free -m |head -n3 |tail -n1 |awk -F " " '{print $NF}')" ] && echo "Apparently, there is less RAM available than required. Enter to continue. System freezing guaranteed !" && read
+echo "Warning :"
+echo "You must not launch anything in the middle of this process!"
+echo
+echo "Copying..."
+mkdir /liveinram
+cp -a /bootmnt/* /liveinram/
+echo "Done !"
+sync
+sleep 1
+echo "Changing mounting point from media to RAM..."
+umount /bootmnt
+mount --bind /liveinram /bootmnt
+
+#if [ -e /addons/mountedaddons ];then
+# if [ -z "$(mount |grep -o 'ABhome on /home')" ];then
+#  echo "Copying add-ons in RAM in order to remove the media of persistent home ? [y/n]"
+#  echo "Please check that the available RAM $(free -m |head -n3 |tail -n1 |awk -F " " '{print $NF}')Mb is enough."
+#  echo -n '=> ' && read cpaddons
+#  if [ "$cpaddons" == "y" ];then
+#   mkdir /liveinram/addons
+#   echo "Copying mounted add-ons..."
+#   for i in $(cat /addons/mountedaddons);do
+#    cp -a ${i} /liveinram/addons/
+#   done
+#   sync;sleep 1
+#   echo "Changing mounting point to RAM..."
+#   umount /media/ABhome
+#   mkdir /media/ABhome/addons
+#   mount --bind /liveinram/addons /media/ABhome/addons
+#  fi
+# fi
+#fi
+# Since we has no addons for now! :P
+
+[ -n "$(sudo blkid -L ARCH_201006 |grep -o sr)" -o -n "$(sudo blkid -L ARCH_201006 |grep -o cd)" ] && sudo eject $(sudo blkid -L ARCH_201006)
+echo "Copy done. CD ejected if present, else you can unplug the live's media."
+#if [ -n "$(mount |grep -o 'ABhome in /home')" ];then
+ echo
+ echo "Note: You can remove the live's media, but not the one for the persistent home, which is mounted."
+#fi

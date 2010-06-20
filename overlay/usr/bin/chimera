@@ -1,0 +1,61 @@
+#!/bin/bash
+# Dist-Upgrade script for ArchBang
+# Chimera is a super-wrapper for pacman and packer and default Update manager for ArchBang GNU/Linux
+# Version - 0.21
+# AUTHOR - PDG <sHyLoCk> [pdg@archlinux.us]
+# Licensed under GPL version 3
+
+URL="http://gitorious.org/archbang-extras/archbang-extras/blobs/raw/master/updates/update.conf"
+URL2="http://gitorious.org/archbang-extras/archbang-extras/blobs/raw/master/updates/pluck"
+# Check if we're root before going ahead
+if [ `whoami` != 'root' ]; then
+	zenity --info --text="Chimera needs to be run with root privileges.\nUse \"sudo chimera\"."
+	echo "Oops! Needs root privilege or use sudo."
+	exit
+fi
+LOCK="/tmp/ab.lock"
+CWD=`pwd`
+touch $LOCK
+#Run Pacman
+echo
+echo "You are running $(cat /etc/archbang.release)"
+date
+echo
+echo
+echo "Running update . . ."
+echo "Updating Arch Packages first."
+echo
+pacman -Syyu
+
+#Run Packer
+echo "Updating AUR Packages . . ."
+echo
+packer -Su
+
+echo "Updating ArchBang Packages . . ."
+echo
+cd /tmp
+wget -q $URL 
+echo "Fetching . . ."
+old=$(head -1 /etc/archbang/updater.conf)
+new=$(head -1 /tmp/update.conf)
+
+if [ "$old" -ne "$new" ]; then
+	echo "Checking out new updates ..."
+	wget -q $URL2
+	chmod +x pluck
+	sh pluck
+	sed -i "2d" /etc/archbang/updater.conf
+	echo "Last Updated on `date`" >> /etc/archbang/updater.conf
+	echo "Cleaning up!"
+	rm -f /tmp/pluck
+else
+	echo "Already up-to-date."
+	sed -i "2d" /etc/archbang/updater.conf
+	echo "Last Updated on `date`" >> /etc/archbang/updater.conf
+	rm update.conf
+	echo "Done!"
+fi
+rm -f $LOCK
+rm -f /tmp/update.conf
+cd $CWD

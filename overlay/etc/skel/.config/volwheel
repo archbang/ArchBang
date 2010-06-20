@@ -1,0 +1,8 @@
+Master
+xterm -e 'alsamixer'
+3
+simple-blue
+/usr/share/volwheel/icons/volwheel.png
+0
+Alsa
+Master:

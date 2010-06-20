@@ -1,0 +1,51 @@
+GOALS AND FEATURES
+------------------
+
+ArchBang is a simple GNU/Linux distribution which provides you with a lightweight Arch Linux system combined with the OpenBox window manager.
+Suitable for both desktop and portable systems. It is fast, stable, and always up to date.
+
+You can customise your install to suit your needs, and draw on the vast resources & knowledge of the Arch Linux community.
+The download page has links to both 32 & 64 bit versions, bootable as a live CD / USB - allowing you to easily test it out before doing a full install.
+
+Try it out now, we're sure you'll be amazed by what ArchBang Linux has to offer !
+
+WARNING: ArchBang is presently under heavy development and is not recommended for production systems.
+
+LICENSE
+-------
+
+GNU General Public License Version 3 <http://gplv3.fsf.org/>
+
+
+RELEASE SCHEDULE
+----------------
+
+Twice a year stable release. We aim at providing monthly build ISOs from the current GIT tree.
+
+
+PLATFORM
+--------
+
+i686 and x86_64
+
+ONLINE INFO
+-----------
+
+Website: http://www.archbang.org/
+
+Forum: http://archbang.x.am/
+
+Development: http://gitorious.org/archbang/archbang
+
+Bugs: http://bugs.archbang.org/
+
+PROJECT MEMBERS
+---------------
+
+Founded by Willensky Aristide [willxtreme] and being led and developed by PDG [sHyLoCk]. 
+Other helpful members and contributors: http://archbang.org/Main/ArchBangTeam
+
+CONTACT
+-------
+
+Please prefer contacting us through forum. 

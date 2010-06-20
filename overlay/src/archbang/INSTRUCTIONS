@@ -1,0 +1,117 @@
+INSTRUCTIONS TO BUILD FROM GIT
+------------------------------
+
+REQUIREMENTS:
+------------
+
+1. Arch Linux or any Arch variant distribution pre-installed.
+2. Git and ArchISO.
+3. A working internet connection.
+4. Working knowledge of Linux and a little time. :)
+
+PREPARING THE SYSTEM
+--------------------
+
+(a) Building manually from AUR [Arch User Repository]
+
+Go to http://aur.archlinux.org/packages.php?ID=25996 and download the tarball. Or just open a terminal and type:
+
+$ wget http://aur.archlinux.org/packages/archiso-git/archiso-git.tar.gz
+$ tar xvf archiso-git.tar.gz
+$ cd archiso-git
+$ makepkg -sci PKGBUILD
+
+This will install the archiso-git package. 
+
+(b) Build archiso-git by cloning GIT manually
+
+$ git clone git://projects.archlinux.org/archiso.git
+$ cd archiso/archiso
+$ sudo make install
+$ sudo pacman -S mkinitcpio cdrkit squashfs-tools devtools syslinux mkinitcpio-nfs-utils nbd
+
+(c) Using Packer [RECOMMENDED]
+
+Assuming you have packer it's as easy as:
+
+$ packer -S archiso-git
+
+Packer can be found here: http://aur.archlinux.org/packages.php?ID=33378
+
+GETTING ARCHBANG
+----------------
+
+Go to the directory where you want to clone the ArchBang git tree. Let's assume your home directory here.
+
+$ cd
+$ git clone git://gitorious.org/archbang/archbang.git
+
+Done! That's pretty much it.
+
+GETTING AUR PACKAGES
+--------------------
+
+
+(a) aurscript.sh
+
+In the directory archbang/scripts  you will find aurscript.sh. Run it as root and it should automatically download and compile the packages for you. 
+Next add this to your /etc/pacman.conf as root:
+
+[custom]
+Server = file:///path/to/your/AUR/packages
+
+(b) Using packer 
+
+Run:
+
+$ packer -S $(cat packages.list.aur)
+
+$ repo-add /path/to/packages/custom.db.tar.gz /path/to/packages/*.xz
+
+Next add this to your /etc/pacman.conf as root:
+
+[custom]
+Server = file:///path/to/your/AUR/packages
+
+(c) Manually
+
+Get all the tarballs of the mentioned packages [except the ones whose PKGBUILDs are provided] and extract them in a directory one by one using:
+
+$ tar xvf packagesname.tar.gz
+$ cd packagesname
+
+Now compile:
+
+$ makepkg -sci PKGBUILD
+
+This should install them for you as well and prompt for root password.
+
+$ repo-add /path/to/packages/custom.db.tar.gz /path/to/packages/*.xz
+
+Next add this to your /etc/pacman.conf as root:
+
+[custom]
+Server = file:///path/to/your/AUR/packages
+
+CUSTOMIZING [optional]
+-----------
+
+You can add or remove packages from Arch Linux official repositories: http://www.archlinux.org/packages/
+or AUR: http://aur.archlinux.org/ in the list packages.list or packages.list.aur respectively.
+You can even change the ISOLINUX prompt by customizing boot-files/isolinux/isolinux.cfg.
+Be creative! Have fun. :)
+
+BUILDING
+--------
+
+Run as root or use sudo if you prefer.
+
+# make all
+
+Wait till it pulls in needed packages and dependencies. It depends on your download speed how fast the make process will complete. 
+
+When it's done you will have an archbang-$ver.iso in your archbang directory. You may remove the archbangftw directory.
+
+# rm -rf archbangftw/
+
+Now you can burn the ISO on a disk or dd to an USB or use in a virtualbox and check it out! 

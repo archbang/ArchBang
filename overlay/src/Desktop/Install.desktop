@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Install
+Comment=ArchBang Installation
+Exec=xterm -T "ArchBang Installation" -e "sudo ab-install"
+Icon=/etc/archbang/abinstall.png
+Terminal=false
+Type=Application
+MimeType=text/plain
+Categories=GTK;Utility;TextEditor;
+StartupNotify=true

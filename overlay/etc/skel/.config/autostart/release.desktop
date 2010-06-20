@@ -1,0 +1,5 @@
+[Desktop Entry]
+
+Type=Application
+
+Exec=firefox "file:///usr/share/doc/archbang/Release Notes.html"
