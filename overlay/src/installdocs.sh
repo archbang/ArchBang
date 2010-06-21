@@ -23,3 +23,14 @@ echo "	" >> ${DESTDIR}/usr/share/doc/archbang/CHANGELOG
 pacman -Q | sort >> ${DESTDIR}/usr/share/doc/archbang/CHANGELOG
 echo
 echo "Done!"
+clear
+echo
+echo
+echo 
+echo -e "\e[01;32m"
+echo "Remember to run \"sudo chimera\" after you Login for the first time."
+echo "This is essential." 
+echo "We recommend using this process to upgrade your packages atleast once a week"!
+echo
+read -p "Press enter to continue ..."
+
