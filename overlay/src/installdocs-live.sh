@@ -5,7 +5,7 @@ echo
 echo "Copying Docs . . ."
 rm -f /etc/arch-release &> /dev/null
 rm -rf /usr/share/doc/archbang/ &> /dev/null
-echo "2010.09 - Testing - \"apeiro\" - GIT Build" > /etc/archbang.release
+echo "2010.09 - \"apeiro\" - RC" > /etc/archbang.release
 mkdir -p /etc/archbang
 echo "1" > /etc/archbang/updater.conf
 mkdir -p /usr/share/doc/

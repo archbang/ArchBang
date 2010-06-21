@@ -25,7 +25,8 @@ echo
 echo "Running update . . ."
 echo "Updating Arch Packages first."
 echo
-pacman -Syyu
+pacman -Syy
+pacman -Su
 
 #Run Packer
 echo "Updating AUR Packages . . ."

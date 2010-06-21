@@ -8,7 +8,7 @@ rm -rf ${DESTDIR}/etc/archbang
 rm -rf ${DESTDIR}/usr/share/doc/archbang
 rm -f ${DESTDIR}/etc/arch-release &> /dev/null
 rm -rf ${DESTDIR}/usr/share/doc/archbang/ &> /dev/null
-echo "2010.09 - Testing - \"apeiro\" - GIT Build" > ${DESTDIR}/etc/archbang.release
+echo "2010.09 - \"apeiro\" - RC" > ${DESTDIR}/etc/archbang.release
 mkdir -p ${DESTDIR}/etc/archbang
 cp -a /etc/archbang/*.png ${DESTDIR}/etc/archbang
 echo "1" > ${DESTDIR}/etc/archbang/updater.conf
