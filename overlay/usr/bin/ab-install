@@ -1631,7 +1631,7 @@ cp -a /usr/bin/conkyswitcher ${DESTDIR}/usr/bin/conkyswitcher
 #cp /etc/slim.conf ${DESTDIR}/etc/
 pacman -Ufd $ARTWORK -r $DESTDIR --noprogressbar --noconfirm &> /dev/null
 rm -f ${DESTDIR}/etc/pacman.conf
-cp -a /etc/pacman.conf ${DESTDIR}/etc/pacman.conf
+cp -a /src/pacman.conf ${DESTDIR}/etc/pacman.conf
 sed '/^#\S/ s|#||' -i ${DESTDIR}/etc/pacman.d/mirrorlist
 rm -f ${DESTDIR}/etc/rc.sysinit
 cp -rp /etc/rc.sysinit ${DESTDIR}/etc/rc.sysinit
