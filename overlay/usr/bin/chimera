@@ -5,8 +5,8 @@
 # AUTHOR - PDG <sHyLoCk> [pdg@archlinux.us]
 # Licensed under GPL version 3
 
-URL="http://gitorious.org/archbang-extras/archbang-extras/blobs/raw/master/updates/update.conf"
-URL2="http://gitorious.org/archbang-extras/archbang-extras/blobs/raw/master/updates/pluck"
+URL="http://github.com/archbang/ArchBang-Extras/raw/master/updates/update.conf"
+URL2="http://github.com/archbang/ArchBang-Extras/raw/master/updates/pluck"
 # Check if we're root before going ahead
 if [ `whoami` != 'root' ]; then
 	zenity --info --text="Chimera needs to be run with root privileges.\nUse \"sudo chimera\"."
