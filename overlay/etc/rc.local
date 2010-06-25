@@ -38,7 +38,7 @@ if (lspci | grep VGA | grep nVidia &> /dev/null); then
 	/src/nvidia_installer.sh $NVPACKAGES
 	else
 	X -configure &> /dev/null
-	cp /root/xorg.conf.new /etc/X11/xorg.conf &> /dev/null	
+#	cp /root/xorg.conf.new /etc/X11/xorg.conf &> /dev/null	
 #	sed -i "/s/nv/nouveau/" /etc/X11/xorg.conf &> /dev/null
 	fi
 fi

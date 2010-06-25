@@ -1625,7 +1625,7 @@ rm -f ${DESTDIR}/usr/bin/ab-install
 rm -f ${DESTDIR}/usr/bin/cp2ram
 rm -f ${DESTDIR}/usr/bin/mvuser.sh
 #cp -a /src/oblogout.conf ${DESTDIR}/etc/oblogout.conf
-cp -a /usr/bin/conkyswitcher ${DESTDIR}/usr/bin/conkyswitcher
+#cp -a /usr/bin/conkyswitcher ${DESTDIR}/usr/bin/conkyswitcher
 ##Install ArchBang Artwork
 #cp -r /usr/share/slim/themes/archbang/ ${DESTDIR}/usr/share/slim/themes/archbang/ &>/dev/null
 #cp /etc/slim.conf ${DESTDIR}/etc/
