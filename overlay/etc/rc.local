@@ -3,7 +3,6 @@
 # /etc/rc.local: Local multi-user startup script.
 #
 
-source /src/installdefaults.$(arch)
 ARTWORK="/src/pkgs/archbang-artwork-2010.06-2-$(arch).pkg.tar.xz"
 chmod 0440 /etc/sudoers &> /dev/null
 mkdir -p /home/live &> /dev/null
@@ -22,25 +21,22 @@ echo
 echo
 if (lspci | grep VGA | grep nVidia &> /dev/null); then
 	echo -e "\e[01;34mnVidia graphic card was detected"
-	echo -e "\e[01;31mPlease wait ..."
-	echo
-	echo
-	echo -e "\e[01;33mYou can choose to use the Open source \"nv\" driver (http://xorg.freedesktop.org/wiki/nv)."
 	echo
 	echo	
 	echo
 	echo
-	echo -e "\e[01;36mWould you like to use the proprietary driver? (Y/N): ";
-	read REPLY
-	if [[ "$REPLY" =~ ^[yY] ]]; then
- 	echo -e "\e[01;32mThis could take a while.  ;-)"
-	cd /src/pkgs
-	/src/nvidia_installer.sh $NVPACKAGES
-	else
-	X -configure &> /dev/null
-#	cp /root/xorg.conf.new /etc/X11/xorg.conf &> /dev/null	
+	echo -e "\e[01;31mPlease wait ..."
+	echo
+	echo
+#	echo -e "\e[01;33mYou can choose to use the Open source \"nv\" driver (http://xorg.freedesktop.org/wiki/nv)."
+	
+#	echo -e "\e[01;36mWould you like to use the proprietary driver? (Y/N): ";
+#	read REPLY
+#	if [[ "$REPLY" =~ ^[yY] ]]; then
+# 	echo -e "\e[01;32mThis could take a while.  ;-)"
+	/src/nouveau-installer.sh
 #	sed -i "/s/nv/nouveau/" /etc/X11/xorg.conf &> /dev/null
-	fi
+#	fi
 fi
 amixer sset 'Master Mono' 90% unmute &> /dev/null
 amixer sset 'Master' 90% unmute &> /dev/null

@@ -867,18 +867,21 @@ chroot $DESTDIR alsactl store
 chroot_umount
 #cp /src/asound.state $DESTDIR/etc/
 
+cp /src/kms/mkinitcpio.conf.none $DESTDIR/etc/mkinitcpio.conf &>/dev/null
+
+if (lspci | grep VGA | grep nVidia &> /dev/null); then
+	/src/nouveau-post-installer.sh
+fi
 #config, initscripts
 #cp /install/etc/* $DESTDIR/etc/
 
 #mkinitcpio.conf for kms
-cp /src/kms/mkinitcpio.conf.none $DESTDIR/etc/mkinitcpio.conf &>/dev/null
 if (lspci | grep VGA | grep -i intel &> /dev/null); then
 	cp /src/kms/mkinitcpio.conf.intel $DESTDIR/etc/mkinitcpio.conf
 else if (lspci | grep VGA | grep ATI &> /dev/null); then
 	cp /src/kms/mkinitcpio.conf.radeon $DESTDIR/etc/mkinitcpio.conf
 fi
 fi
-#[ -n "$(grep -o 'nouveau.modeset=1' /proc/cmdline)" ] && cp /src/kms/mkinitcpio.conf.nouveau $DESTDIR/etc/mkinitcpio.conf
 
 ##PLYMOUTH WOWOWOW
 clear
@@ -1616,10 +1619,6 @@ extra_config()
 clear
 echo 
 echo
-#shipped nVidia packages. in installation order (nvidia-utils then nvidia)
-if (lspci | grep VGA | grep nVidia &> /dev/null); then
-	/src/nvidia-post-install.sh
-fi
 cp -a /usr/bin/chimera ${DESTDIR}/usr/bin/
 rm -f ${DESTDIR}/usr/bin/ab-install
 rm -f ${DESTDIR}/usr/bin/cp2ram

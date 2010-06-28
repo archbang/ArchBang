@@ -1,3 +1,4 @@
 grub2
-nvidia
-nvidia-utils
+nouveau-dri
+nouveau-firmware
+xf86-video-nouveau
