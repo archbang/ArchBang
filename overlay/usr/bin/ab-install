@@ -1364,7 +1364,7 @@ extra_grub()
     $EDITOR ${DESTDIR}/etc/grub.d/40_custom
 	clear
 	DIALOG --msgbox "Edit the Grub2 Extra Config.\n\nCheck if the default selection and your screen resolution is alright!" 0 0
-	zenity --info --text "Please Note:\n\n1. By default framebuffer \"vga=791\" is being used. If it doesn't work for your kms, remove that from GRUB_CMDLINE_LINUX_DEFAULT after \"quiet\".\n\n2. \"vga=791\" maybe needed to get the \"ArchBang Plymouth Theme\" else a default theme will be shown.\n\n3. Add \"splash\" to enable plymouth. Disabled by default. \n\n"
+	zenity --info --text "Please Note:\n\n1. \"vga=791\" maybe needed to get the \"ArchBang Plymouth Theme\" else a default theme will be shown.\n\n2. Add \"splash\" to enable plymouth. Disabled by default. \n\n3. Read http://wiki.archlinux.org/index.php/KMS \n\n"
     [ "$EDITOR" ] || geteditor
     $EDITOR ${DESTDIR}/etc/default/grub
 	clear

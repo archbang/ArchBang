@@ -155,7 +155,7 @@ run_hook shutdown_poweroff
 if [ "$RUNLEVEL" = "0" ]; then
 	printsep
 	printhl "${C_H2}POWER OFF"
-[ -n "$(sudo blkid -L ARCH_201006 |grep -o sr)" -o -n "$(sudo blkid -L ARCH_201006 |grep -o cd)" ] && sudo eject $(sudo blkid -L ARCH_201006)
+[ -n "$(blkid -L ARCH_201006 |grep -o sr)" -o -n "$(blkid -L ARCH_201006 |grep -o cd)" ] && eject $(blkid -L ARCH_201006)
 echo
 printhl "${C_H2}Remove CD-ROM (if any), close the CD tray  and press enter to continue . . ."
 read
@@ -165,7 +165,7 @@ else
 	printhl "${C_H2}REBOOTING"
 	# if kexec is installed and a kernel is loaded, use it
 	[ -x /sbin/kexec ] && /sbin/kexec -e > /dev/null 2>&1
-[ -n "$(sudo blkid -L ARCH_201006 |grep -o sr)" -o -n "$(sudo blkid -L ARCH_201006 |grep -o cd)" ] && sudo eject $(sudo blkid -L ARCH_201006)
+[ -n "$(blkid -L ARCH_201006 |grep -o sr)" -o -n "$(blkid -L ARCH_201006 |grep -o cd)" ] && eject $(blkid -L ARCH_201006)
 echo
 printhl "${C_H2}Remove CD-ROM (if any) and press enter to continue . . ."
 read
