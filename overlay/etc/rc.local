@@ -33,9 +33,12 @@ if (lspci | grep VGA | grep nVidia &> /dev/null); then
 #	echo -e "\e[01;36mWould you like to use the proprietary driver? (Y/N): ";
 #	read REPLY
 #	if [[ "$REPLY" =~ ^[yY] ]]; then
-# 	echo -e "\e[01;32mThis could take a while.  ;-)"
-	/src/nouveau-installer.sh
+ 	echo -e "\e[01;32mThis could take a while.  ;-)"
+	pacman -Rsnd xorg-video-divers --noconfirm --noprogressbar &> /dev/null
+echo
 	X -configure 2> /dev/null
+	cp /root/xorg.conf.new /etc/X11/xorg.conf &> /dev/null
+
 #	sed -i "/s/nv/nouveau/" /etc/X11/xorg.conf &> /dev/null
 #	fi
 fi
@@ -56,5 +59,4 @@ sh /src/installdocs-live.sh &> /dev/null
 echo -e "\e[01;32mDone!"
 #This might be necessary for chromium to launch.
 #rm -f /usr/lib/chromium/chromium-sandbox
-cp /root/xorg.conf.new /etc/X11/xorg.conf 2> /dev/null
 

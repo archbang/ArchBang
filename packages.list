@@ -1,3 +1,4 @@
+
 alsa-firmware
 alsa-oss
 alsa-utils
@@ -42,6 +43,8 @@ lxde
 nano
 netcfg
 network-manager-applet
+nouveau-dri
+nouveau-firmware
 ntfs-3g
 ntfsprogs
 obconf
@@ -59,6 +62,7 @@ wireless_tools
 wvdial
 xf86-input-evdev
 xf86-input-synaptics
+xf86-video-nouveau
 xfce4-power-manager
 xorg
 xorg-input-drivers
